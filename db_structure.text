@@ -1,0 +1,33 @@
+User Collection
+docID
+name
+email
+contactNumber
+
+Category Table
+categoryID
+categoryName
+categoryImage
+
+
+Product Table
+productID
+productName
+productImage
+productDescription
+produtPrice
+productRating
+categoryID
+
+Cart
+userID
+totalBill
+product:[]
+
+
+Order Table
+cart
+user
+placementDate
+status
+isProcessed
