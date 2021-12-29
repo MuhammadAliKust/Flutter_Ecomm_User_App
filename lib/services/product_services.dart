@@ -11,12 +11,15 @@ class ProductServices {
   }
 
   ///Update Category
-  Future updateProduct(ProductModel categoryModel) async {
+  Future updateProduct(ProductModel productModel) async {
     return await FirebaseFirestore.instance
         .collection('productCollection')
-        .doc(categoryModel.categoryId)
+        .doc(productModel.categoryId)
         .update({
-      //TODO: Write update product fields till tomorrow
+      'productName': productModel.productName,
+      'productDescription': productModel.productDescription,
+      'productPrice': productModel.productPrice,
+      'productImage': productModel.productImage,
     });
   }
 

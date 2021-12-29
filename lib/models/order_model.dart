@@ -18,21 +18,24 @@ class OrderModel {
     this.user,
     this.isProcessed,
     this.placementDate,
-    this.status,
+    this.isCompleted,
+    this.isPending,
   });
 
   CartModel? cart;
   UserModel? user;
   bool? isProcessed;
+  bool? isPending;
+  bool? isCompleted;
   String? placementDate;
-  String? status;
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
         cart: CartModel.fromJson(json["cart"]),
         user: UserModel.fromJson(json["user"]),
         isProcessed: json["isProcessed"],
         placementDate: json["placementDate"],
-        status: json["status"],
+        isCompleted: json["isCompleted"],
+        isPending: json["isPending"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,6 +43,7 @@ class OrderModel {
         "user": user!.toJson(),
         "isProcessed": isProcessed,
         "placementDate": placementDate,
-        "status": status,
+        "isCompleted": isCompleted,
+        "isPending": isPending,
       };
 }
