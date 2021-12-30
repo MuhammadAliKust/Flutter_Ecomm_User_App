@@ -1,20 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecom_user_side_app/models/category_model.dart';
 import 'package:ecom_user_side_app/models/product_model.dart';
 
 class ProductServices {
   ///Create Product
-  Future createProduct(ProductModel categoryModel) async {
+  Future createProduct(ProductModel productModel) async {
     return await FirebaseFirestore.instance
         .collection('productCollection')
-        .add(categoryModel.toJson());
+        .add(productModel.toJson());
   }
 
-  ///Update Category
+  ///Update Product
   Future updateProduct(ProductModel productModel) async {
     return await FirebaseFirestore.instance
         .collection('productCollection')
-        .doc(productModel.categoryId)
+        .doc(productModel.productId)
         .update({
       'productName': productModel.productName,
       'productDescription': productModel.productDescription,
@@ -23,15 +22,15 @@ class ProductServices {
     });
   }
 
-  ///Delete Category
-  Future deleteProduct(String categoryID) async {
+  ///Delete Products
+  Future deleteProduct(String productID) async {
     return await FirebaseFirestore.instance
         .collection('productCollection')
-        .doc(categoryID)
+        .doc(productID)
         .delete();
   }
 
-  ///Get All Categories
+  ///Get All Products
   Stream<List<ProductModel>> streamProduct() {
     return FirebaseFirestore.instance
         .collection('productCollection')
