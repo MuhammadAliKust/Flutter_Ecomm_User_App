@@ -4,9 +4,9 @@ import 'package:ecom_user_side_app/models/product_model.dart';
 class ProductServices {
   ///Create Product
   Future createProduct(ProductModel productModel) async {
-    return await FirebaseFirestore.instance
-        .collection('productCollection')
-        .add(productModel.toJson());
+    DocumentReference docRef =
+        FirebaseFirestore.instance.collection('productCollection').doc();
+    return await docRef.set(productModel.toJson(docRef.id));
   }
 
   ///Update Product

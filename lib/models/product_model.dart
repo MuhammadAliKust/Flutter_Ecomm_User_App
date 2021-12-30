@@ -7,7 +7,8 @@ import 'dart:convert';
 ProductModel productModelFromJson(String str) =>
     ProductModel.fromJson(json.decode(str));
 
-String productModelToJson(ProductModel data) => json.encode(data.toJson());
+String productModelToJson(ProductModel data) =>
+    json.encode(data.toJson(data.productId.toString()));
 
 class ProductModel {
   ProductModel({
@@ -38,13 +39,13 @@ class ProductModel {
         productImage: json["productImage"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson(String docID) => {
         "categoryID": categoryId,
         "productName": productName,
         "productDescription": productDescription,
         "productPrice": productPrice,
-        "productRating": productRating,
-        "productID": productId,
+        "productRating": 0,
+        "productID": docID,
         "productImage": productImage,
       };
 }

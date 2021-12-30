@@ -31,6 +31,7 @@ class CartModel {
   Map<String, dynamic> toJson() => {
         "userID": userId,
         "totalBill": totalBill,
-        "product": List<dynamic>.from(product!.map((x) => x.toJson())),
+        "product": List<dynamic>.from(
+            product!.map((x) => x.toJson(x.productId.toString()))),
       };
 }

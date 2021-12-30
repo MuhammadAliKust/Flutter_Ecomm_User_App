@@ -1,0 +1,97 @@
+{
+  "project_info": {
+    "project_number": "1024480651224",
+    "project_id": "backend-integration-9801b",
+    "storage_bucket": "backend-integration-9801b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024480651224:android:d2b446f595c6d41d7f74ad",
+        "android_client_info": {
+          "package_name": "com.example.ecom_app_backend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024480651224-iijlc795g9eokj7aevnr3819a3qakhl1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDl7tbKoFKos_NEzb6sE39oBpgAejQFEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1024480651224-iijlc795g9eokj7aevnr3819a3qakhl1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024480651224:android:144d90a70d5b56e57f74ad",
+        "android_client_info": {
+          "package_name": "com.example.ecom_user_side_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024480651224-iijlc795g9eokj7aevnr3819a3qakhl1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDl7tbKoFKos_NEzb6sE39oBpgAejQFEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1024480651224-iijlc795g9eokj7aevnr3819a3qakhl1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1024480651224:android:95e3c93101961a9f7f74ad",
+        "android_client_info": {
+          "package_name": "com.infusiblecoderali.first_intro_class"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1024480651224-iijlc795g9eokj7aevnr3819a3qakhl1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDl7tbKoFKos_NEzb6sE39oBpgAejQFEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1024480651224-iijlc795g9eokj7aevnr3819a3qakhl1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
