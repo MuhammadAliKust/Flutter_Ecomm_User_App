@@ -31,9 +31,10 @@ class ProductServices {
   }
 
   ///Get All Products
-  Stream<List<ProductModel>> streamProduct() {
+  Stream<List<ProductModel>> streamProduct(String categoryID) {
     return FirebaseFirestore.instance
         .collection('productCollection')
+        .where('categoryID', isEqualTo: categoryID)
         .snapshots()
         .map((list) => list.docs
             .map((singleDoc) => ProductModel.fromJson(singleDoc.data()))

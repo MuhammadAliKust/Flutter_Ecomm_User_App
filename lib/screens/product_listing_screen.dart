@@ -5,6 +5,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class ProductListingScreen extends StatelessWidget {
+  final String categoryID;
+
+  ProductListingScreen(this.categoryID);
+
   ProductServices _productServices = ProductServices();
 
   @override
@@ -14,7 +18,7 @@ class ProductListingScreen extends StatelessWidget {
         title: Text("Product Listing"),
       ),
       body: StreamProvider.value(
-        value: _productServices.streamProduct(),
+        value: _productServices.streamProduct(categoryID),
         initialData: [ProductModel()],
         builder: (context, child) {
           List<ProductModel> list = context.watch<List<ProductModel>>();
