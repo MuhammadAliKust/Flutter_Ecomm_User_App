@@ -35,6 +35,7 @@ dependencies:
   provider: ^6.0.2
   webview_flutter: ^2.0.12
   firebase_auth: ^3.3.4
+  loading_overlay: ^0.3.0
 
 dev_dependencies:
   flutter_test:

@@ -10,7 +10,8 @@ import 'package:ecom_user_side_app/models/user_model.dart';
 OrderModel orderModelFromJson(String str) =>
     OrderModel.fromJson(json.decode(str));
 
-String orderModelToJson(OrderModel data) => json.encode(data.toJson());
+String orderModelToJson(OrderModel data) =>
+    json.encode(data.toJson(data.user!.docId.toString()));
 
 class OrderModel {
   OrderModel({
@@ -38,9 +39,9 @@ class OrderModel {
         isPending: json["isPending"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson(String userID) => {
         "cart": cart!.toJson(),
-        "user": user!.toJson(),
+        "user": user!.toJson(userID),
         "isProcessed": isProcessed,
         "placementDate": placementDate,
         "isCompleted": isCompleted,

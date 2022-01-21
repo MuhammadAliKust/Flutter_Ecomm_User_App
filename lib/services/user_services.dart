@@ -6,7 +6,8 @@ class UserServices {
   Future createUser(UserModel userModel) async {
     return await FirebaseFirestore.instance
         .collection('userCollection')
-        .add(userModel.toJson());
+        .doc(userModel.docId.toString())
+        .set(userModel.toJson(userModel.docId.toString()));
   }
 
   ///Fetch User Record

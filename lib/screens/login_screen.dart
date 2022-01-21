@@ -1,37 +1,117 @@
+import 'package:ecom_user_side_app/services/auth_services.dart';
+import 'package:ecom_user_side_app/services/user_services.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController _emailController = TextEditingController();
+
+  TextEditingController _pwdController = TextEditingController();
+
+  AuthServices _authServices = AuthServices();
+
+  bool isLoading = false;
+
+  UserServices _userServices = UserServices();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Login Screen"),
-      ),
-      body: Column(
-        children: [
-          TextFormField(
-            decoration: InputDecoration(hintText: 'Email ID'),
-          ),
-          TextFormField(
-            decoration: InputDecoration(hintText: 'Password'),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Row(
-            children: [Text("Forgot Password?")],
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          RaisedButton(
-            onPressed: () {},
-            child: Text("Login"),
-          )
-        ],
+    return LoadingOverlay(
+      isLoading: isLoading,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Login Screen"),
+        ),
+        body: Column(
+          children: [
+            TextFormField(
+              controller: _emailController,
+              decoration: InputDecoration(hintText: 'Email ID'),
+            ),
+            TextFormField(
+              controller: _pwdController,
+              decoration: InputDecoration(hintText: 'Password'),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [Text("Forgot Password?")],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            RaisedButton(
+              onPressed: () {
+                makeLoadingTrue();
+                _authServices
+                    .loginUser(
+                        email: _emailController.text,
+                        password: _pwdController.text)
+                    .then((firebaseUser) {
+                  makeLoadingFalse();
+                  _userServices
+                      .fetchUserRecord(firebaseUser.user!.uid.toString())
+                      .first
+                      .then((userData) {
+                    print(userData.toJson('docID'));
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return CupertinoAlertDialog(
+                            title: Text("Message!"),
+                            content: Text(
+                                "${userData.docId} have successfully logged in."),
+                            actions: [
+                              FlatButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('Okay'))
+                            ],
+                          );
+                        });
+                  });
+                }).onError((error, stackTrace) {
+                  makeLoadingFalse();
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return CupertinoAlertDialog(
+                          title: Text("Message!"),
+                          content: Text(error.toString()),
+                          actions: [
+                            FlatButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Okay'))
+                          ],
+                        );
+                      });
+                });
+              },
+              child: Text("Login"),
+            )
+          ],
+        ),
       ),
     );
+  }
+
+  makeLoadingFalse() {
+    isLoading = false;
+    setState(() {});
+  }
+
+  makeLoadingTrue() {
+    isLoading = true;
+    setState(() {});
   }
 }

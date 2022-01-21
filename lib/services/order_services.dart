@@ -6,7 +6,7 @@ class OrderServices {
   Future placeOrder(OrderModel orderModel) async {
     return await FirebaseFirestore.instance
         .collection('orderCollection')
-        .add(orderModel.toJson());
+        .add(orderModel.toJson(orderModel.user!.docId.toString()));
   }
 
   ///Get My Orders

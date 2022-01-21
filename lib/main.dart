@@ -1,9 +1,7 @@
-import 'package:ecom_user_side_app/helper/data_entry_handler.dart';
-import 'package:ecom_user_side_app/screens/category_listing_screen.dart';
-import 'package:ecom_user_side_app/screens/product_listing_screen.dart';
+import 'package:ecom_user_side_app/screens/login_screen.dart';
+import 'package:ecom_user_side_app/screens/sign_up_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,9 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: CategoryListingScreen(),
+      home: LoginScreen(),
     );
   }
 }
-
-
