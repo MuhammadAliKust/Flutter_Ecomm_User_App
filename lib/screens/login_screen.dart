@@ -1,8 +1,11 @@
+import 'package:ecom_user_side_app/provider/user_provider.dart';
+import 'package:ecom_user_side_app/screens/profile_view.dart';
 import 'package:ecom_user_side_app/services/auth_services.dart';
 import 'package:ecom_user_side_app/services/user_services.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -61,23 +64,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       .first
                       .then((userData) {
                     print(userData.toJson('docID'));
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return CupertinoAlertDialog(
-                            title: Text("Message!"),
-                            content: Text(
-                                "${userData.docId} have successfully logged in."),
-                            actions: [
-                              FlatButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text('Okay'))
-                            ],
-                          );
-                        });
+                    Provider.of<UserProvider>(context, listen: false)
+                        .saveUserData(userData);
                   });
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ProfileView()));
                 }).onError((error, stackTrace) {
                   makeLoadingFalse();
                   showDialog(
