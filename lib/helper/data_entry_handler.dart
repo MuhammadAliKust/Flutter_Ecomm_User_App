@@ -39,7 +39,7 @@ class DataEntryHandler extends StatelessWidget {
               productDescription:
                   "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum",
               productImage: "",
-              productPrice: "112.00",
+              productPrice: 456,
             ));
           },
           child: Text("Create Product"),

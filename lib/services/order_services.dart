@@ -58,4 +58,17 @@ class OrderServices {
             .map((singleDoc) => OrderModel.fromJson(singleDoc.data()))
             .toList());
   }
+
+  ///Get My Cancelled Orders
+
+  Stream<List<OrderModel>> streamMyCancelledOrders(String myID) {
+    return FirebaseFirestore.instance
+        .collection('orderCollection')
+        .where('user.docID', isEqualTo: myID)
+        .where('isCancelled', isEqualTo: true)
+        .snapshots()
+        .map((list) => list.docs
+            .map((singleDoc) => OrderModel.fromJson(singleDoc.data()))
+            .toList());
+  }
 }

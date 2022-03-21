@@ -1,15 +1,23 @@
 import 'package:ecom_user_side_app/models/product_model.dart';
+import 'package:ecom_user_side_app/screens/product_detail_screen.dart';
 import 'package:ecom_user_side_app/services/product_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
-class ProductListingScreen extends StatelessWidget {
+class ProductListingScreen extends StatefulWidget {
   final String categoryID;
 
   ProductListingScreen(this.categoryID);
 
+  @override
+  _ProductListingScreenState createState() => _ProductListingScreenState();
+}
+
+class _ProductListingScreenState extends State<ProductListingScreen> {
   ProductServices _productServices = ProductServices();
+
+  int quantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +26,7 @@ class ProductListingScreen extends StatelessWidget {
         title: Text("Product Listing"),
       ),
       body: StreamProvider.value(
-        value: _productServices.streamProduct(categoryID),
+        value: _productServices.streamProduct(widget.categoryID),
         initialData: [ProductModel()],
         builder: (context, child) {
           List<ProductModel> list = context.watch<List<ProductModel>>();
@@ -59,6 +67,17 @@ class ProductListingScreen extends StatelessWidget {
                             itemSize: 30.0,
                             direction: Axis.horizontal,
                           ),
+                          RaisedButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProductDetailsScreen(
+                                              productModel: list[i])));
+                            },
+                            child: Text("Check Details"),
+                          )
                         ],
                       ),
                     )

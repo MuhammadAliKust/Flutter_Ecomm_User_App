@@ -1,37 +1,45 @@
-// To parse this JSON data, do
-//
-//     final cartModel = cartModelFromJson(jsonString);
-
-import 'dart:convert';
-
 import 'package:ecom_user_side_app/models/product_model.dart';
 
-CartModel cartModelFromJson(String str) => CartModel.fromJson(json.decode(str));
-
-String cartModelToJson(CartModel data) => json.encode(data.toJson());
-
 class CartModel {
+  String? uID;
+  int? quantity;
+  num? totalPrice;
+  int? sortTime;
+  String? docID;
+  ProductModel? productDetails;
+
   CartModel({
-    this.userId,
-    this.totalBill,
-    this.product,
+    this.quantity,
+    this.totalPrice,
+    this.sortTime,
+    this.docID,
+    this.uID,
+    this.productDetails,
   });
 
-  String? userId;
-  String? totalBill;
-  List<ProductModel>? product;
+  CartModel.fromJson(Map<String, dynamic> json) {
+    quantity = json['quantity'];
+    totalPrice = json['totalPrice'];
+    sortTime = json['sortTime'];
+    docID = json['docID'];
+    uID = json['uID'];
+    productDetails = json['productDetails'] != null
+        ? new ProductModel.fromJson(json['productDetails'])
+        : null;
+  }
 
-  factory CartModel.fromJson(Map<String, dynamic> json) => CartModel(
-        userId: json["userID"],
-        totalBill: json["totalBill"],
-        product: List<ProductModel>.from(
-            json["product"].map((x) => ProductModel.fromJson(x))),
-      );
+  Map<String, dynamic> toJson(String docID) {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['quantity'] = this.quantity;
+    data['totalPrice'] = this.totalPrice;
+    data['sortTime'] = this.sortTime;
+    data['uID'] = this.uID;
+    data['docID'] = docID;
+    if (this.productDetails != null) {
+      data['productDetails'] =
+          this.productDetails!.toJson(productDetails!.productId.toString());
+    }
 
-  Map<String, dynamic> toJson() => {
-        "userID": userId,
-        "totalBill": totalBill,
-        "product": List<dynamic>.from(
-            product!.map((x) => x.toJson(x.productId.toString()))),
-      };
+    return data;
+  }
 }

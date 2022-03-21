@@ -12,7 +12,7 @@ class CategoryServices {
   ///Update Category
   Future updateCategory(CategoryModel categoryModel) async {
     return await FirebaseFirestore.instance
-        .collection('collectionPath')
+        .collection('categoryCollection')
         .doc(categoryModel.categoryId)
         .update({
       'categoryImage': categoryModel.categoryImage,
