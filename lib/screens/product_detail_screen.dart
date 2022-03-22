@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:ecom_user_side_app/models/cart_model.dart';
 import 'package:ecom_user_side_app/models/product_model.dart';
 import 'package:ecom_user_side_app/provider/cart_provider.dart';
 import 'package:ecom_user_side_app/provider/user_provider.dart';
+import 'package:ecom_user_side_app/services/cart_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +19,7 @@ class ProductDetailsScreen extends StatefulWidget {
 
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int quantity = 1;
+  CartServices _cartServices = CartServices();
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +96,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               quantity * widget.productModel.productPrice!,
                           uID: userProvider.getUserData.docId,
                           productDetails: widget.productModel));
+
+                      _cartServices.addToCart(context,
+                          model: CartModel(
+                              quantity: quantity,
+                              totalPrice:
+                                  quantity * widget.productModel.productPrice!,
+                              uID: userProvider.getUserData.docId,
+                              productDetails: widget.productModel),
+                          uid: userProvider.getUserData.docId.toString());
                     },
                     child: Text("Add to Cart"),
                   )

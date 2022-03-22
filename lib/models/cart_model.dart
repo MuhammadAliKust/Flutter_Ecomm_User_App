@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:ecom_user_side_app/models/product_model.dart';
 
 class CartModel {
@@ -18,6 +20,7 @@ class CartModel {
   });
 
   CartModel.fromJson(Map<String, dynamic> json) {
+    log(json.toString());
     quantity = json['quantity'];
     totalPrice = json['totalPrice'];
     sortTime = json['sortTime'];

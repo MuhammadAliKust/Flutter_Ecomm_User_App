@@ -1,3 +1,4 @@
+import 'package:ecom_user_side_app/helper/wrapper.dart';
 import 'package:ecom_user_side_app/provider/cart_provider.dart';
 import 'package:ecom_user_side_app/provider/user_provider.dart';
 import 'package:ecom_user_side_app/screens/category_listing_screen.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: CategoryListingScreen(),
+      home: Wrapper(),
     );
   }
 }

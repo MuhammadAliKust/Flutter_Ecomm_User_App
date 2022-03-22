@@ -1,5 +1,7 @@
 import 'package:ecom_user_side_app/helper/wrapper.dart';
 import 'package:ecom_user_side_app/provider/user_provider.dart';
+import 'package:ecom_user_side_app/screens/cart_view.dart';
+import 'package:ecom_user_side_app/screens/category_listing_screen.dart';
 import 'package:ecom_user_side_app/screens/edit_profile.dart';
 import 'package:ecom_user_side_app/services/auth_services.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,16 @@ class ProfileView extends StatelessWidget {
           RaisedButton(onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => EditProfileView()));
+          }),
+          RaisedButton(
+              child: Text("Categories Screen"), onPressed: () async {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CategoryListingScreen()));
+          }),
+          RaisedButton(child: Text("My Cart"), onPressed: () async {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => CartView()));
+
           }),
           RaisedButton(
               child: Text("Logout"),

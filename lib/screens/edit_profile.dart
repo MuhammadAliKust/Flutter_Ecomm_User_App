@@ -35,6 +35,7 @@ class _EditProfileViewState extends State<EditProfileView> {
       ),
       body: Column(
         children: [
+
           TextFormField(
             controller: _nameController,
             decoration: InputDecoration(labelText: 'Name'),
