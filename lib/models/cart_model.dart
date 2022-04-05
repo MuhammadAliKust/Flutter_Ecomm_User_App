@@ -1,12 +1,10 @@
-import 'dart:developer';
-
 import 'package:ecom_user_side_app/models/product_model.dart';
 
 class CartModel {
   String? uID;
-  int? quantity;
+  num? quantity;
   num? totalPrice;
-  int? sortTime;
+  num? sortTime;
   String? docID;
   ProductModel? productDetails;
 
@@ -20,7 +18,6 @@ class CartModel {
   });
 
   CartModel.fromJson(Map<String, dynamic> json) {
-    log(json.toString());
     quantity = json['quantity'];
     totalPrice = json['totalPrice'];
     sortTime = json['sortTime'];

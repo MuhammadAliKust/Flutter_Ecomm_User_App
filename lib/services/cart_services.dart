@@ -41,7 +41,7 @@ class CartServices {
 
   ///Increment Quantity
   Future<void> incrementProductQuantity(BuildContext context,
-      {required String productID,
+      {required String docID,
       required num updatedPrice,
       // required num quantity,
       required String uid}) async {
@@ -49,7 +49,7 @@ class CartServices {
         .collection('cartCollection')
         .doc(uid)
         .collection('myCart')
-        .doc(productID)
+        .doc(docID)
         .update({
       'quantity': FieldValue.increment(1),
       'totalPrice': FieldValue.increment(updatedPrice),
@@ -58,14 +58,14 @@ class CartServices {
 
   ///Decrement Quantity
   Future<void> decrementProductQuantity(BuildContext context,
-      {required String productID,
+      {required String docID,
       required num updatedPrice,
       required String uid}) async {
     FirebaseFirestore.instance
         .collection('cartCollection')
         .doc(uid)
         .collection('myCart')
-        .doc(productID)
+        .doc(docID)
         .update({
       'quantity': FieldValue.increment(-1),
       'totalPrice': FieldValue.increment(-updatedPrice),
@@ -74,8 +74,6 @@ class CartServices {
 
   ///Check specific Product
   Stream<List<CartModel>> streamSpecificProduct(String productID, String uid) {
-    print("UID : $uid");
-    print("Product ID : $productID");
     return FirebaseFirestore.instance
         .collection('cartCollection')
         .doc(uid)
@@ -101,7 +99,7 @@ class CartServices {
   ///Delete Specific Item
   Future<void> deleteOneItem(
       {required String docID, required String userID}) async {
-    print("User ID : $userID");
+    print("User  ID : $userID");
     return FirebaseFirestore.instance
         .collection('cartCollection')
         .doc(userID)

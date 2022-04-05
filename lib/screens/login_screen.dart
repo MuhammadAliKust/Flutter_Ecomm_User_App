@@ -1,5 +1,7 @@
 import 'package:ecom_user_side_app/helper/wrapper.dart';
 import 'package:ecom_user_side_app/provider/user_provider.dart';
+import 'package:ecom_user_side_app/screens/profile_view.dart';
+import 'package:ecom_user_side_app/screens/sign_up_screen.dart';
 import 'package:ecom_user_side_app/services/auth_services.dart';
 import 'package:ecom_user_side_app/services/user_services.dart';
 import 'package:flutter/cupertino.dart';
@@ -70,10 +72,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     Provider.of<UserProvider>(context, listen: false)
                         .saveUserData(userData);
 
-                    await storage.write(key: 'LOGIN_STATUS', value: 'exist');
+                    // await storage.write(key: 'LOGIN_STATUS', value: 'exist');
                   });
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Wrapper()));
+                      MaterialPageRoute(builder: (context) => ProfileView()));
                 }).onError((error, stackTrace) {
                   makeLoadingFalse();
                   showDialog(
@@ -94,7 +96,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 });
               },
               child: Text("Login"),
-            )
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SignUpScreen()));
+              },
+              child: Text("SignUP"),
+            ),
           ],
         ),
       ),

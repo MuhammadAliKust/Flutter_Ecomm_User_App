@@ -25,7 +25,7 @@ class ProductModel {
   String? productName;
   String? productDescription;
   num? productPrice;
-  String? productRating;
+  num? productRating;
   String? productId;
   String? productImage;
 

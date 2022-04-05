@@ -32,6 +32,7 @@ class ProductServices {
 
   ///Get All Products
   Stream<List<ProductModel>> streamProduct(String categoryID) {
+    print(categoryID);
     return FirebaseFirestore.instance
         .collection('productCollection')
         .where('categoryID', isEqualTo: categoryID)

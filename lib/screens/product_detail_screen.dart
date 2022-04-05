@@ -90,21 +90,38 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       //     .toList();
                       // // log(cartProvider.getCartList[0].toJson('docID').toString());
                       // return;
-                      cartProvider.saveCartData(CartModel(
-                          quantity: quantity,
-                          totalPrice:
-                              quantity * widget.productModel.productPrice!,
-                          uID: userProvider.getUserData.docId,
-                          productDetails: widget.productModel));
-
-                      _cartServices.addToCart(context,
-                          model: CartModel(
+                      _cartServices
+                          .streamSpecificProduct(
+                              widget.productModel.productId.toString(),
+                              userProvider.getUserData.docId.toString())
+                          .first
+                          .then((value) {
+                        if (value.isEmpty) {
+                          cartProvider.saveCartData(CartModel(
                               quantity: quantity,
                               totalPrice:
                                   quantity * widget.productModel.productPrice!,
                               uID: userProvider.getUserData.docId,
-                              productDetails: widget.productModel),
-                          uid: userProvider.getUserData.docId.toString());
+                              productDetails: widget.productModel));
+
+                          _cartServices.addToCart(context,
+                              model: CartModel(
+                                  quantity: quantity,
+                                  totalPrice: quantity *
+                                      widget.productModel.productPrice!,
+                                  uID: userProvider.getUserData.docId,
+                                  productDetails: widget.productModel),
+                              uid: userProvider.getUserData.docId.toString());
+                        } else {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  title: Text("Product already in cart"),
+                                );
+                              });
+                        }
+                      });
                     },
                     child: Text("Add to Cart"),
                   )
