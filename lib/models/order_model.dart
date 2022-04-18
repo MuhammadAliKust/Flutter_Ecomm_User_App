@@ -4,14 +4,15 @@
 
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecom_user_side_app/models/cart_model.dart';
 import 'package:ecom_user_side_app/models/user_model.dart';
 
 OrderModel orderModelFromJson(String str) =>
     OrderModel.fromJson(json.decode(str));
 
-String orderModelToJson(OrderModel data) =>
-    json.encode(data.toJson(data.user!.docId.toString()));
+String orderModelToJson(OrderModel data) => json.encode(data.toJson(
+    userID: data.user!.docId.toString(), orderID: data.orderID.toString()));
 
 class OrderModel {
   OrderModel({
@@ -26,11 +27,12 @@ class OrderModel {
     this.isCompleted,
     this.isPending,
     this.isCancelled,
-    this.storeID,
+    this.adminID,
     this.totalBill,
   });
-String? orderID;
-  CartModel? cart;
+
+  String? orderID;
+  List<CartModel>? cart;
   UserModel? user;
   bool? isProcessed;
   bool? isPending;
@@ -41,38 +43,49 @@ String? orderID;
   String? completedDate;
   String? cancelledDate;
   String? isCancelled;
-  String? storeID;
+  String? adminID;
 
+  OrderModel.fromJson(Map<String, dynamic> json) {
+    if (json['cart'] != null) {
+      cart = <CartModel>[];
+      json['cart'].forEach((v) {
+        cart!.add(new CartModel.fromJson(v));
+      });
+    }
+    user = UserModel.fromJson(json["user"]);
+    isProcessed = json["isProcessed"];
+    orderID = json["orderID"];
+    placementDate = json["placementDate"];
+    isCompleted = json["isCompleted"];
+    isPending = json["isPending"];
+    isCancelled = json["isCancelled"];
+    adminID = json["adminID"];
+    processedData = json["processedData"];
+    cancelledDate = json["cancelledDate"];
+    completedDate = json["completedDate"];
+    totalBill = json["totalBill"];
+  }
 
-  factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
-        cart: CartModel.fromJson(json["cart"]),
-        user: UserModel.fromJson(json["user"]),
-        isProcessed: json["isProcessed"],
-    orderID: json["orderID"],
-        placementDate: json["placementDate"],
-        isCompleted: json["isCompleted"],
-        isPending: json["isPending"],
-        isCancelled: json["isCancelled"],
-        storeID: json["storeID"],
-        processedData: json["processedData"],
-        cancelledDate: json["cancelledDate"],
-        completedDate: json["completedDate"],
-        totalBill: json["totalBill"],
-      );
+  Map<String, dynamic> toJson(
+      {required String userID, required String orderID}) {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.cart != null) {
+      data['cart'] =
+          this.cart!.map((v) => v.toJson(v.docID.toString())).toList();
+    }
+    data["user"] = user!.toJson(userID);
+    data["isProcessed"] = false;
+    data["orderID"] = orderID;
+    data["placementDate"] = Timestamp.fromDate(DateTime.now());
+    data["processedData"] = Timestamp.fromDate(DateTime.now());
+    data["completedDate"] = Timestamp.fromDate(DateTime.now());
+    data["cancelledDate"] = Timestamp.fromDate(DateTime.now());
+    data["adminID"] = adminID;
+    data["totalBill"] = totalBill;
+    data["isCompleted"] = false;
+    data["isCancelled"] = false;
+    data["isPending"] = true;
 
-  Map<String, dynamic> toJson(String userID) => {
-        "cart": cart!.toJson(userID),
-        "user": user!.toJson(userID),
-        "isProcessed": false,
-        "orderID": orderID,
-        "placementDate": placementDate,
-        "processedData": processedData,
-        "completedDate": completedDate,
-        "cancelledDate": cancelledDate,
-        "storeID": storeID,
-        "totalBill": totalBill,
-        "isCompleted": false,
-        "isCancelled": false,
-        "isPending": true,
-      };
+    return data;
+  }
 }

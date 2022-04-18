@@ -10,4 +10,9 @@ class CartProvider extends ChangeNotifier {
   }
 
   List<CartModel> get getCartList => _list;
+
+  void emptyMyLocalCart(){
+    _list.clear();
+    notifyListeners();
+  }
 }

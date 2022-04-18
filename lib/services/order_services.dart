@@ -4,9 +4,11 @@ import 'package:ecom_user_side_app/models/order_model.dart';
 class OrderServices {
   ///Place Order
   Future placeOrder(OrderModel orderModel) async {
-    return await FirebaseFirestore.instance
-        .collection('orderCollection')
-        .add(orderModel.toJson(orderModel.user!.docId.toString()));
+    DocumentReference _docRef =
+        FirebaseFirestore.instance.collection('orderCollection').doc();
+    return await _docRef.set(orderModel.toJson(
+        userID: orderModel.user!.docId.toString(),
+        orderID: _docRef.id.toString()));
   }
 
   ///Get My Orders
